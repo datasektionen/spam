@@ -1,0 +1,15 @@
+{
+  "name": "spam",
+  "version": "0.0.0",
+  "description": "mail for sending mails",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemailer": "^2.6.4",
+    "nodemailer-ses-transport": "^1.4.0"
+  }
+}
