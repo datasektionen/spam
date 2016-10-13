@@ -43,6 +43,8 @@ var sendMail = function(req, res) {
     transporter.sendMail(email, function(err, info){
         if (err){
           console.log(err);
+          res.status(400);
+          res.send('email message error');
         } else {
           console.log('Sent email, messageid: ' + info.messageId);
           res.status(200);
@@ -54,11 +56,9 @@ var sendMail = function(req, res) {
 
 router.post('/sendmail', function(req, res) {
     //check api key such that they are actually allowed to send email
-    console.log(req.body.key);
     models.Key.findOne({
         where: {key: req.body.key}
     }).then(function(key) {
-        console.log(key);
         if(!key) return errorMessage(res, 'Bad api key');
         //Otherwise just send the mail.
         sendMail(req, res);
