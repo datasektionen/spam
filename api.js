@@ -23,6 +23,7 @@ var sendMail = function(req, res) {
     if (!req.body.to) return errorMessage(res, 'Missing field: to');
     //We only allow to send from verified email addresses or anything ending with @datasektionen.se.
     if (!req.body.from) return errorMessage(res, 'Missing field: from');
+    //TODO: there is some error here, seems to let you send as any email currently.
     if (!(verifiedFromEmails.indexOf(req.body.from) < 0 || !req.body.from.endsWith('@datasektionen.se'))) {
         return errorMessage(res, 'Invalid from address: ' + req.body.from);
     }
@@ -44,7 +45,7 @@ var sendMail = function(req, res) {
         if (err){
           console.log(err);
           res.status(400);
-          res.send('email message error');
+          res.send('amazon email message error');
         } else {
           console.log('Sent email, messageid: ' + info.messageId);
           res.status(200);
