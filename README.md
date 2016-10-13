@@ -1,6 +1,7 @@
 # Spam
 A system for sending mail
 
+spam.froyo.datasektionen.se/api/sendmail
 Api fields: 
 * from: no-reply@datasektionen.se //Who it is from. \*.datasektionen.se or another verified address such as valberedning@d.kth.se
 * to: foo@example.com, bar@example.com //A comma separated list of emails
