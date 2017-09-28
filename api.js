@@ -2,7 +2,7 @@ var express = require('express');
 var router  = express.Router();
 var nodemailer = require('nodemailer');
 var ses = require('nodemailer-ses-transport');
-var models = require('./models');
+var fetch = require('node-fetch');
 
 var transporter = nodemailer.createTransport(ses({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID, //AWS key id
@@ -57,12 +57,15 @@ var sendMail = function(req, res) {
 
 router.post('/sendmail', function(req, res) {
     //check api key such that they are actually allowed to send email
-    models.Key.findOne({
-        where: {key: req.body.key}
-    }).then(function(key) {
-        if(!key) return errorMessage(res, 'Bad api key');
-        //Otherwise just send the mail.
+    fetch('https://pls.datasektionen.se/api/token/' + req.body.key + '/spam')
+    .then(function(json) { return json.json()})
+    .then(function(json) {
+        if(!json.includes('send')) return errormessage(res, 'bad api key');
+        //otherwise just send the mail.
+        console.log(json)
         sendMail(req, res);
+    }).catch(function(err) {
+      res.send(err);
     });
 });
 
