@@ -17,12 +17,13 @@
     "ejs": "^2.5.7",
     "email-templates": "^3.0.3",
     "express": "^4.16.0",
+    "html-to-markdown": "^1.0.0",
     "markdown-it": "^8.4.0",
     "node-fetch": "^1.7.3",
     "nodemailer": "^4.1.1",
     "nodemailer-ses-transport": "^1.5.1"
   },
   "engines": {
-    "node": ">=8.3"
+    "node": "=8.6"
   }
 }

@@ -6,6 +6,8 @@ const nodemailer = require('nodemailer');
 const ses = require('nodemailer-ses-transport');
 const Email = require('email-templates');
 
+var converter = require('html-to-markdown');
+
 const md = require('markdown-it')({
   html: true,
   linkify: true
@@ -31,9 +33,12 @@ const sendMail = (req, res) => {
     if (!req.body.to) return errorMessage(res, 'Missing field: to');
     if (!req.body.from) return errorMessage(res, 'Missing field: from');
     if (!req.body.subject) return errorMessage(res, 'Missing field: subject');
-    if (!req.body.content)
+    if (req.body.html) {
+      req.body.content = converter.convert(req.body.html);
+    } else if (!req.body.content) {
       return errorMessage(res, 'Missing field: content');
-    
+    }
+
     //We only allow to send from verified email addresses or anything ending with @datasektionen.se.
     const isVerified = verifiedFromEmails.includes(req.body.from);
     const isDatasektionen = req.body.from.endsWith('@datasektionen.se');
