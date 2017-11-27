@@ -6,7 +6,10 @@ const nodemailer = require('nodemailer');
 const ses = require('nodemailer-ses-transport');
 const Email = require('email-templates');
 
-var converter = require('html-to-markdown');
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
+
+const converter = require('html-to-markdown');
 
 const md = require('markdown-it')({
   html: true,
@@ -68,6 +71,11 @@ const sendMail = (req, res) => {
         replyTo: replyTo, // Not needed unless this address will be different from the above.
         subject: req.body.subject, // Subject has to be templated?
         to: req.body.to, // list of receivers
+        attachments: req.files.map(f => ({
+          filename: f.originalname,
+          content: f.buffer,
+          contentType: f.mimetype,
+        })),
       },
       template: template || 'default',
       locals: {
@@ -85,7 +93,7 @@ const sendMail = (req, res) => {
     });
 };
 
-router.post('/sendmail', function(req, res) {
+router.post('/sendmail', upload.array('attachments[]', 12), function(req, res) {
     //check api key such that they are actually allowed to send email
     fetch('https://pls.datasektionen.se/api/token/' + req.body.key + '/spam')
     .then(response => response.json())
