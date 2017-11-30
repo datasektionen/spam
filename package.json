@@ -25,6 +25,6 @@
     "nodemailer-ses-transport": "^1.5.1"
   },
   "engines": {
-    "node": "=8.6"
+    "node": "^8.6"
   }
 }

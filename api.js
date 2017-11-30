@@ -93,7 +93,7 @@ const sendMail = (req, res) => {
     });
 };
 
-router.post('/sendmail', upload.array('attachments[]', 12), function(req, res) {
+const apiCheck = (req, res) => {
     //check api key such that they are actually allowed to send email
     fetch('https://pls.datasektionen.se/api/token/' + req.body.key + '/spam')
     .then(response => response.json())
@@ -102,6 +102,9 @@ router.post('/sendmail', upload.array('attachments[]', 12), function(req, res) {
         //otherwise just send the mail.
         sendMail(req, res);
     }).catch(err => res.send(err));
-});
+};
+
+router.post('/sendmail', upload.array('attachments[]', 5), apiCheck);
+router.post('/sendmail', apiCheck);
 
 module.exports = router;
