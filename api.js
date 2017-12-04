@@ -71,7 +71,7 @@ const sendMail = (req, res) => {
         replyTo: replyTo, // Not needed unless this address will be different from the above.
         subject: req.body.subject, // Subject has to be templated?
         to: req.body.to, // list of receivers
-        attachments: req.files.map(f => ({
+        attachments: (req.files || []).map(f => ({
           filename: f.originalname,
           content: f.buffer,
           contentType: f.mimetype,
