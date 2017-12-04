@@ -101,7 +101,11 @@ const apiCheck = (req, res) => {
         if(!json.includes('send')) return errorMessage(res, 'Bad api key');
         //otherwise just send the mail.
         sendMail(req, res);
-    }).catch(err => res.send(err));
+    }).catch(err => {
+      console.log('fetch error', err);
+      res.status(500)
+      res.send(err)
+    });
 };
 
 router.post('/sendmail', upload.array('attachments[]', 5), apiCheck);
