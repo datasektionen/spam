@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport(ses({
 }));
 
 //Emails that been verified that we can send from
-const verifiedFromEmails = ['valberedning@d.kth.se'];
+const verifiedFromEmails = ['valberedning@d.kth.se', 'titel@d.kth.se'];
 
 const errorMessage = (res, message) => {
   res.status(400);
