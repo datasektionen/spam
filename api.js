@@ -111,4 +111,5 @@ const apiCheck = (req, res) => {
 router.post('/sendmail', upload.array('attachments[]', 5), apiCheck);
 router.post('/sendmail', apiCheck);
 
+router.get('/ping', (req, res) => { res.status(200).send("I'm alive!\n"); }); 
 module.exports = router;
