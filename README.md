@@ -1,7 +1,7 @@
 # Spam
 A system for sending mail
 
-spam.froyo.datasektionen.se/api/sendmail
+https://spam.datasektionen.se/api/sendmail
 
 API keys can be generated in the permission system, pls. The key needs to have the permission "send" in the "spam" system.
 
