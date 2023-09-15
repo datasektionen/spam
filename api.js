@@ -45,7 +45,9 @@ const sendMail = (req, res) => {
     //We only allow to send from verified email addresses or anything ending with @datasektionen.se.
     const isVerified = verifiedFromEmails.includes(req.body.from);
     const isDatasektionen = req.body.from.endsWith('@datasektionen.se');
-    if (!(isVerified || isDatasektionen)) {
+    const isMetaspexet = req.body.from.endsWith('@metaspexet.se');
+    
+    if (!(isVerified || isDatasektionen || isMetaspexet)) {
         return errorMessage(res, 'Invalid from address: ' + req.body.from);
     }
 
