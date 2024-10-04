@@ -100,9 +100,6 @@ const sendMail = (req, res) => {
     },
   });
 
-  console.log(req.body.content);
-  console.log(md.render(req.body.content));
-
   email
     .send({
       message: {
