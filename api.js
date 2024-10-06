@@ -24,9 +24,6 @@ const transporter = nodemailer.createTransport(
   })
 );
 
-// mails that been verified that we can send from. Idk why we have this, but we do.
-const VERIFIED_FROM_EMAILS = ["valberedning@d.kth.se", "titel@d.kth.se"];
-
 // Domains we can send from
 const VERIFIED_DOMAINS = ["@metaspexet.se", "@datasektionen.se"];
 
@@ -72,15 +69,14 @@ const sendMail = (req, res) => {
   }
 
   // We only allow to send from verified email addresses or anything ending with @datasektionen.se and @metaspexet.se
-  const isVerified = VERIFIED_FROM_EMAILS.includes(req.body.from);
   const isVerifiedDomain = VERIFIED_DOMAINS.some((domain) =>
     verifyDomain(req.body.from, domain)
   );
 
-  if (!(isVerified || isVerifiedDomain)) {
+  if (!isVerifiedDomain) {
     return errorMessage(
       res,
-      "Invalid from address: " + JSON.stringify(req.body.from)
+      "Invalid from domain: " + JSON.stringify(req.body.from)
     );
   }
 
