@@ -46,9 +46,14 @@ The following field are optional:
     provide your own HTML.
 
 - `attachments[]`: Attachments to include in the email. A maximum of 5
-  files can be attached. This can only be used when using
+  files can be attached. You can upload files directly when using
   `multipart/form-data` content type. The files should be sent as a
   list of files with the key `attachments[]`.
+
+  You can also send already encoded files via JSON.
+  An attachment sent via JSON needs the keys `originalname`,
+  `buffer` (the file contents), and `mimetype`. You can also
+  supply the `encoding` parameter.
 
 An example of a valid JSON request:
 
@@ -70,7 +75,15 @@ An example of a valid JSON request:
       "address": "ordf@datasektionen.se"
     }
   ],
-  "bcc": ["very@secret.com"]
+  "bcc": ["very@secret.com"],
+  "attachments[]": [
+    {
+      "originalname": "file.txt",
+      "buffer": "Hello World!"
+      "mimetype": "text/plain",
+      "encoding": "utf8"
+    }
+  ]
 }
 ```
 
