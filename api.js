@@ -105,10 +105,11 @@ const sendMail = (req, res) => {
         to: req.body.to, // list of receivers
         cc: req.body.cc || [], // list of cc
         bcc: req.body.bcc || [], // list of bcc
-        attachments: (req.files || []).map((f) => ({
+        attachments: (req.files || req.body["attachments[]"] || []).map((f) => ({
           filename: f.originalname,
           content: f.buffer,
           contentType: f.mimetype,
+          encoding: f.encoding || "utf8" // only applies when buffer is a string
         })),
       },
       template: template,
