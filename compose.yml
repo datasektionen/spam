@@ -1,0 +1,28 @@
+services:
+  spam:
+    build: .
+    environment:
+    - AWS_ACCESS_KEY_ID=aaaaaaaaaaaaaaaa
+    - AWS_SECRET_ACCESS_KEY=aaaaaaaaaaaaaaaaaaaaaaa
+    - HIVE_API_URL=http://nyckeln:7004/api/v1
+    - HIVE_API_KEY=aaaa
+    - PORT=5000
+    ports:
+      - 5000:5000
+  nyckeln:
+    image: ghcr.io/datasektionen/nyckeln-under-dorrmattan
+    configs:
+      - source: nyckeln.yaml
+        target: /config.yaml
+    ports:
+      - 7004:7004
+
+configs:
+  nyckeln.yaml:
+    content: |
+      hive:
+        tokens:
+          - secret: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaa
+            permissions:
+              - id: send
+                scope: null
