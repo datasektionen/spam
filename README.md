@@ -10,10 +10,11 @@ Send an email to one or more recipients. Requests can be sent using
 JSON or form-data. Be sure to set the `Content-Type` header to
 `application/json` or `multipart/form-data` respectively.
 
+Requests must be made with a hive api token with the permission `send`
+for spam as a `Authorization` header in `Bearer` format
+
 The following fields are required:
 
-- `key`: A valid API key from [pls](https://pls.datasektionen.se/)
-  with the permission `spam` in the `spam` system.
 - `from`: The email address to send the email from. Must be a verified
   email address.
 - `to`: A list of email addresses to send the email to.
