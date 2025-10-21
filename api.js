@@ -132,7 +132,10 @@ const sendMail = (req, res) => {
 
 const apiCheck = (req, res) => {
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];  // Bearer <token>
+    const token = authHeader.split(' ')[1];  // Bearer <token>
+    if (token === undefined) {
+        token = req.body.key
+    }
     //check api key such that they are actually allowed to send email
     fetch(process.env.HIVE_API_URL + "/token/" + token + "/permission/send",
         {
