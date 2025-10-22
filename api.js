@@ -132,8 +132,8 @@ const sendMail = (req, res) => {
 
 const apiCheck = (req, res) => {
     const authHeader = req.headers['authorization'];
-    const token = authHeader.split(' ')[1];  // Bearer <token>
-    if (token === undefined) {
+    const token = authHeader && authHeader.split(' ')[1];  // Bearer <token>
+    if (token === false) {
         token = req.body.key
     }
     //check api key such that they are actually allowed to send email
