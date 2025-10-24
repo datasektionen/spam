@@ -118,45 +118,12 @@ const sendMail = (req, res) => {
         res.status(500);
         res.send(error);
     });
-
-    // email
-    //     .send({
-    //         message: {
-    //             from: req.body.from, // sender address
-    //             replyTo: replyTo, // Not needed unless this address will be different from the above.
-    //             subject: req.body.subject, // Subject has to be templated?
-    //             to: req.body.to, // list of receivers
-    //             cc: req.body.cc || [], // list of cc
-    //             bcc: req.body.bcc || [], // list of bcc
-    //             attachments: (req.files || req.body["attachments[]"] || []).map((f) => ({
-    //                 filename: f.originalname,
-    //                 content: f.buffer,
-    //                 contentType: f.mimetype,
-    //                 encoding: f.encoding || "utf8" // only applies when buffer is a string
-    //             })),
-    //         },
-    //         template: template,
-    //         locals: {
-    //             content: md.render(req.body.content),
-    //             raw_content: req.body.content,
-    //         },
-    //     })
-    //     .then((status) => {
-    //         console.log("status", status);
-    //         res.status(200);
-    //         res.send(status);
-    //     })
-    //     .catch((error) => {
-    //         console.log("error", error);
-    //         res.status(500);
-    //         res.send(error);
-    //     });
 };
 
 const apiCheck = (req, res) => {
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];  // Bearer <token>
-    if (token === false) {
+    let token = authHeader && authHeader.split(' ')[1];  // Bearer <token>
+    if (token === undefined) {
         token = req.body.key
     }
     //check api key such that they are actually allowed to send email
