@@ -1,19 +1,19 @@
-job "spam" {
+job "spam-old" {
   type = "service"
 
-  group "spam" {
+  group "spam-old" {
     network {
       port "http" { }
     }
 
     service {
-      name     = "spam"
+      name     = "spam-old"
       port     = "http"
       provider = "nomad"
       tags = [
         "traefik.enable=true",
-        "traefik.http.routers.spam.rule=Host(`spam.datasektionen.se`)",
-        "traefik.http.routers.spam.tls.certresolver=default",
+        "traefik.http.routers.spam-old.rule=Host(`spam-old.datasektionen.se`)",
+        "traefik.http.routers.spam-old.tls.certresolver=default",
       ]
     }
 
@@ -27,7 +27,7 @@ job "spam" {
 
       template {
         data        = <<ENV
-{{ with nomadVar "nomad/jobs/spam" }}
+{{ with nomadVar "nomad/jobs/spam-old" }}
 AWS_ACCESS_KEY_ID={{ .aws_access_id }}
 AWS_SECRET_ACCESS_KEY={{ .aws_access_key }}
 HIVE_API_KEY={{ .hive_api_key }}
